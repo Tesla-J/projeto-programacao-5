@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Voice Journal</string>
+
+    <string name="fab_gravar">Gravar novo registro</string>
+</resources>
