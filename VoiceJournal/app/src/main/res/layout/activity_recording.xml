@@ -21,6 +21,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/stop_fab"
         android:src="@drawable/baseline_stop_24"
+        android:contentDescription="@string/stop_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"

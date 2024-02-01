@@ -10,6 +10,7 @@
     <string name="previous">Previous</string>
 
     <string name="timer">%1$d</string>
+    <string name="stop_fab">Stop recording</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
