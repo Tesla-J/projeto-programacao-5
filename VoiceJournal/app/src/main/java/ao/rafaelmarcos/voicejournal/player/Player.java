@@ -6,7 +6,6 @@ import android.util.Log;
 import java.io.IOException;
 
 public class Player {
-    private boolean isPlaying;
     private MediaPlayer player;
 
     public void play(String filePath){
@@ -37,5 +36,9 @@ public class Player {
             player.release();
             player = null;
         }
+    }
+
+    public boolean isPlaying(){
+        return player != null;
     }
 }
