@@ -7,8 +7,11 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import ao.rafaelmarcos.voicejournal.player.Player;
+
 public class MainActivity extends AppCompatActivity {
     private FloatingActionButton mRecordFab;
+    private Player mPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +23,23 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RecordingActivity.class);
             startActivity(intent);
         });
+
+        mPlayer = new Player();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        if(RecordingActivity.AUDIO_FILE != null)
+            mPlayer.play(RecordingActivity.AUDIO_FILE);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        if(mPlayer.isPlaying())
+            mPlayer.stop();
     }
 }

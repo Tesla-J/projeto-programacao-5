@@ -13,12 +13,18 @@ import androidx.core.app.ActivityCompat;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ao.rafaelmarcos.voicejournal.microphone.MicrophoneManager;
+
 public class RecordingActivity extends AppCompatActivity {
+    public static String AUDIO_FILE;
+
     private TextView mTimerTextView;
     private FloatingActionButton mStopFab;
 
     private final int AUDIO_PERMISSION_REQUEST_CODE = 200; //WHY 200?
     private boolean mHasRecodingPermission;
+
+    private MicrophoneManager mMicrophoneManager;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults){
@@ -36,21 +42,36 @@ public class RecordingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
 
-        mTimerTextView = findViewById(R.id.timer);
+        mTimerTextView = findViewById(R.id.timer); // TODO update with a timer in another thread
         mStopFab = findViewById(R.id.stop_fab);
         mStopFab.setOnClickListener((v) -> {
-            // TODO stop recoding and save file
-            String timerText = String.format(getString(R.string.timer), 99);
-            mTimerTextView.setText(timerText);
+            mMicrophoneManager.stopRecording();
+            finish();
         });
 
         // Request recording permission
         String[] recordingPermission = {Manifest.permission.RECORD_AUDIO};
         ActivityCompat.requestPermissions(this, recordingPermission, AUDIO_PERMISSION_REQUEST_CODE);
+
+        // TODO don't rely on it
+        // Set default filename (testing purpose)
+        RecordingActivity.AUDIO_FILE = getFilesDir() + "/" + "audio.amr";
+
+        mMicrophoneManager = new MicrophoneManager();
     }
 
-    private void startRecording(){
-        // TODO record audio
-        Toast.makeText(this, "Recording", Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        mMicrophoneManager.startRecording(RecordingActivity.AUDIO_FILE);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        mMicrophoneManager.stopRecording();
     }
 }
